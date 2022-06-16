@@ -26,7 +26,7 @@ public class UserService {
         return userRepository.save(user_Class_data);
     }
 
-    public void save(List<UserClass> users_data) {
-        userRepository.saveAll(users_data);
+    public void save(List<UserClass> usersData) {
+        userRepository.saveAll(usersData);
     }
 }
