@@ -1,4 +1,4 @@
-package com.users_data.domain;
+package com.usersData.domain;
 
 
 import lombok.AllArgsConstructor;

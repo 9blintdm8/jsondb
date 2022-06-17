@@ -1,7 +1,7 @@
-package com.users_data.service;
+package com.usersData.service;
 
-import com.users_data.domain.UserClass;
-import com.users_data.repository.UserRepository;
+import com.usersData.domain.UserClass;
+import com.usersData.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

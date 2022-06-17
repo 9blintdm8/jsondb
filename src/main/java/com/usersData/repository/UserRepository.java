@@ -1,6 +1,6 @@
-package com.users_data.repository;
+package com.usersData.repository;
 
-import com.users_data.domain.UserClass;
+import com.usersData.domain.UserClass;
 import org.springframework.data.repository.CrudRepository;
 
 

@@ -1,8 +1,5 @@
-package com.users_data.filter;
+package com.usersData.filter;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -15,11 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 @Component
 public class LoggingFilter extends OncePerRequestFilter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingFilter.class);
+    Logger logger = Logger.getLogger(String.valueOf(LoggingFilter.class));
+    FileHandler fh;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -34,11 +35,26 @@ public class LoggingFilter extends OncePerRequestFilter {
 
         long timeTaken = System.currentTimeMillis() - startTime;
 
-        String requestBody = getStringValue(contentCachingRequestWrapper.getContentAsByteArray(), request.getCharacterEncoding());
+//        String requestBody = getStringValue(contentCachingRequestWrapper.getContentAsByteArray(), request.getCharacterEncoding());
         String responseBody = getStringValue(contentCachingResponseWrapper.getContentAsByteArray(), response.getCharacterEncoding());
 
-        LOGGER.info("Filter Logs : Method = {}; REQUESTURI = {}; REQUEST BODY = {}; RESPONSECODE = {}; RESPONSEBODY = {}; TIMETAKEN = {}",
-                request.getMethod(), request.getRequestURI(), requestBody, response.getStatus(), responseBody, timeTaken);
+        try {
+
+            // This block configure the logger with handler and formatter
+            fh = new FileHandler("C:/Projektek/jsondb/logfile.log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+
+            logger.log(Level.INFO,"Method: {0}",request.getMethod());
+            logger.log(Level.INFO,"RequestURI: {0}",request.getRequestURI());
+            logger.log(Level.INFO,"Response Code: {0}",response.getStatus());
+            logger.log(Level.INFO,"Response Body: {0}",responseBody);
+            logger.log(Level.INFO,"Time Taken: {0}",timeTaken);
+
+        } catch (SecurityException | IOException e) {
+            e.printStackTrace();
+        }
 
         contentCachingResponseWrapper.copyBodyToResponse();
 
