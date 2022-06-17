@@ -1,4 +1,4 @@
-package com.usersData.filter;
+package com.users_data.filter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

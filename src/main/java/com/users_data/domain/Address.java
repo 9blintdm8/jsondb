@@ -1,4 +1,4 @@
-package com.usersData.domain;
+package com.users_data.domain;
 
 
 import lombok.Data;
