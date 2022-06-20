@@ -35,7 +35,6 @@ public class JsondbApplication {
 			try {
 				List<UserClass> userClasses = mapper.readValue(inputStream,typeReference);
 				userService.save(userClasses);
-				System.out.println("Users Saved!");
 			} catch (IOException e){
 				System.out.println("Unable to save users: " + e.getMessage());
 			}
